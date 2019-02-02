@@ -1,0 +1,53 @@
+{
+  "name": "menu-bar-component",
+  "version": "1.0.0",
+  "description": "Recreating Twitch Profile Service",
+  "main": "index.js",
+  "scripts": {
+    "react-dev": "webpack -d --watch",
+    "start": "node server/index.js",
+    "start-database": "mysql -uroot -p < database/Schema.sql",
+    "seed-database": "node database/seedData.js",
+    "test": "jest"
+  },
+  "author": "Milena Milano",
+  "license": "MIT",
+  "jest": {
+    "setupTestFrameworkScriptFile": "./spec/enzymeConfig.js",
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    }
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/preset-env": "^7.2.3",
+    "@babel/preset-react": "^7.0.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-loader": "^8.0.5",
+    "css-loader": "^2.1.0",
+    "enzyme": "^3.8.0",
+    "enzyme-adapter-react-16": "^1.7.1",
+    "enzyme-to-json": "^3.0.0-beta6",
+    "jest": "^23.6.0",
+    "sinon": "^7.2.2",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.28.4",
+    "webpack-cli": "^3.2.1"
+  },
+  "dependencies": {
+    "@babel/core": "^7.2.2",
+    "babel-jest": "^23.6.0",
+    "body-parser": "^1.17.0",
+    "cors": "^2.8.5",
+    "express": "^4.15.0",
+    "faker": "^4.1.0",
+    "jquery": "^3.1.1",
+    "mysql": "^2.16.0",
+    "react": "^15.6.2",
+    "react-bootstrap": "^0.32.4",
+    "react-dom": "^15.6.2",
+    "react-router-dom": "^4.3.1",
+    "regenerator-runtime": "^0.13.1",
+    "request": "^2.81.0"
+  }
+}
