@@ -8,7 +8,7 @@
     "start": "node server/index.js",
     "start-database": "mysql -uroot -p < database/Schema.sql",
     "seed-database": "node database/seedData.js",
-    "seed": "node MongoDB/seedScript.js",
+    "mongoSeed": "node MongoDB/seedScript.js",
     "test": "jest"
   },
   "author": "Milena Milano",

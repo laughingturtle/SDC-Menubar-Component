@@ -1,4 +1,4 @@
-const path = require('path');
+//const path = require('path');
 
 let knex = require('knex')({
   client: 'pg',
@@ -10,7 +10,36 @@ let knex = require('knex')({
   }
 });
 
-let db = require('bookshelf')(knex)
+let db = require('bookshelf')(knex);
+
+db.knex.schema.hasTable('users').then(function (exists) {
+  if (!exists) {
+    db.knex.schema.createTable('users', function (table) {
+      table.increments('user_id').primary();
+      table.string('display_name', 50);
+      table.string('logo', 900);
+      table.string('profile_image_url', 900);
+      table.string('category', 50);
+      table.integer('followers');
+      table.integer('following');
+    }).then(function (table) {
+      console.log('Created Table: ', table);
+    });
+  }
+});
+
+db.knex.schema.hasTable('followers').then(function (exists) {
+  if (!exists) {
+    db.knex.schema.createTable('followers', function (table) {
+      table.increments('follower_id').primary();
+      table.string('display_name', 50);
+      table.string('logo', 900);
+      table.string('category', 50);
+    }).then(function (table) {
+      console.log('Created Table: ', table);
+    });
+  }
+});
 
 
 

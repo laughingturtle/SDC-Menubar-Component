@@ -2,7 +2,8 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const database = require('../database');
+//const database = require('../database');
+//const db = require('../PostgreSQL/config');
 const port = 3015;
 
 //process.env.PORT ||
