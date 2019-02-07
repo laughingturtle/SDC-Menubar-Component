@@ -8,6 +8,7 @@
     "start": "node server/index.js",
     "start-database": "mysql -uroot -p < database/Schema.sql",
     "seed-database": "node database/seedData.js",
+    "seed": "node MongoDB/seedScript.js",
     "test": "jest"
   },
   "author": "Milena Milano",
@@ -42,6 +43,8 @@
     "express": "^4.15.0",
     "faker": "^4.1.0",
     "jquery": "^3.1.1",
+    "make-runnable": "^1.3.6",
+    "mongodb": "^3.1.13",
     "mysql": "^2.16.0",
     "react": "^15.6.2",
     "react-bootstrap": "^0.32.4",
