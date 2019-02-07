@@ -9,6 +9,7 @@
     "start-database": "mysql -uroot -p < database/Schema.sql",
     "seed-database": "node database/seedData.js",
     "mongoSeed": "node MongoDB/seedScript.js",
+    "pgSeed": "node PostgreSQL/seedScript.js",
     "test": "jest"
   },
   "author": "Milena Milano",
