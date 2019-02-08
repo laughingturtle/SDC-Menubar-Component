@@ -55,7 +55,7 @@ module.exports = () => {
     .then((data) => console.log('Done!'))
     .then((data) => knex.destroy());
 
-  return;
+  return ``;
 };
 
 

@@ -13,7 +13,8 @@ class App extends React.Component {
       followedUser: null,
       followedCategory: null,
       followedLogo: null,
-      users: fakeData,
+      users: null,
+      /* users: fakeData, */
       selectedUser: 0
     }
 
@@ -43,30 +44,40 @@ class App extends React.Component {
   }
 
 
-  // componentDidMount() {
-  //   fetch('http://localhost:3000/username')
-  //     .then(res => res.json())
-  //     .then(
-  //       (result) => {
-  //         this.setState({
-  //           users: [...result]
-  //         })
-  //       },
-  //       (error) => {
-  //         console.log('error')
-  //       }
-  //     )
-  // }
+  componentDidMount() {
+    // console.log(Array.isArray(this.state.users));
+    // console.log(this.state.users);
+    fetch('http://localhost:3015/username')
+      .then(res => res.json())
+      .then(
+        (result) => {
+          console.log(Array.isArray(result));
+          console.log(result);
+          this.setState({
+            users: [...result]
+          })
+        },
+        (error) => {
+          console.log('error')
+        }
+      )
+  }
 
   render() {
-    const sidebar = this.state.users.length ? <SideBar userInfo={this.state} onSelect={this.displayStreamerVideos}/> : null;
-    const appRouter = this.state.users.length ? <AppRouter userInfo={this.state} onClick={(e) => this.handleClick(e)}/> : null;
-    return (
-      <div>
-        {appRouter}
-        {sidebar}
-      </div>
-    )
+    // const sidebar = this.state.users.length ? <SideBar userInfo={this.state} onSelect={this.displayStreamerVideos}/> : null;
+    // const appRouter = this.state.users.length ? <AppRouter userInfo={this.state} onClick={(e) => this.handleClick(e)}/> : null;
+    if (this.state.users === null) {
+      return ( <div>Loading . . .</div>);
+    } else {
+      const sidebar = this.state.users.length ? <SideBar userInfo={this.state} onSelect={this.displayStreamerVideos} /> : null;
+      const appRouter = this.state.users.length ? <AppRouter userInfo={this.state} onClick={(e) => this.handleClick(e)} /> : null;
+      return (
+        <div>
+          {appRouter}
+          {sidebar}
+        </div>
+      );
+    }
   }
 }
 

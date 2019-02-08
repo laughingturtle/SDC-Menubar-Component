@@ -3,7 +3,8 @@ const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 //const database = require('../database');
-const db = require('../PostgreSQL/config');
+//const pgClient = require('../PostgreSQL/config');
+const mongo = require('../MongoDB/index');
 const port = 3015;
 
 //process.env.PORT ||
@@ -12,6 +13,28 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(express.static(__dirname + '/../public'));
+
+app.get('/username', (req, res) => {
+  mongo.client.connect((err) => {
+    if (err) { console.log(err) } else { console.log('Mongo connected') }
+    const db = mongo.client.db(`menu-bar-data`);
+    const users = db.collection(`users`);
+
+    new Promise((resolve, reject) => {
+      const options = { "limit": 100, "skip": 9999900 };
+      users.find({}, options).toArray((err, docs) => {
+        if (err) { console.log(err) }
+        resolve(docs);
+      })
+    }).then((data) => res.send(JSON.stringify(data)));
+
+  })
+});
+
+
+
+
+app.listen(port, () => console.log(`App listening on port ${port}!`))
 
 
 // app.get('/username', function (req, res) {
@@ -23,9 +46,3 @@ app.use(express.static(__dirname + '/../public'));
 //     }
 //   })
 // });
-
-
-
-
-
-app.listen(port, () => console.log(`App listening on port ${port}!`))
