@@ -51,10 +51,10 @@ To install PostgreSQL run:
 brew install postgresql
 
 To start the database server run:
-pg_ctl - D /usr/local/var/postgres start
+pg_ctl -D /usr/local/var/postgres start
 
 To stop the database server run:
-pg_ctl - D /usr/local/var/postgres stop
+pg_ctl -D /usr/local/var/postgres stop
 
 To connect to the default database run:
 psql postgres
