@@ -54,7 +54,6 @@ module.exports = () => {
     .then((data) => console.log('10 million records written . . .'))
     .then((data) => console.log('Done!'))
     .then((data) => knex.destroy());
-
   return ``;
 };
 
