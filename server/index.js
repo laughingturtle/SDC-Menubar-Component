@@ -25,7 +25,6 @@ app.get('/username', (req, res) => {
       const options = { "limit": 100, "skip": 9999900 };
       users.find({}, options).toArray((err, docs) => {
         if (err) { console.log(err) }
-        console.log(docs);
         resolve(docs);
       })
     }).then((data) => res.send(JSON.stringify(data)));
@@ -40,15 +39,4 @@ app.get('/username', (req, res) => {
 // });
 
 
-app.listen(port, () => console.log(`App listening on port ${port}!`))
-
-
-// app.get('/username', function (req, res) {
-//   database.connection.query('SELECT * FROM users', (error, results, fields) => {
-//     if (error) {
-//       console.log('error')
-//     } else {
-//       res.json(results);
-//     }
-//   })
-// });
+app.listen(port, () => console.log(`App listening on port ${port}!`));

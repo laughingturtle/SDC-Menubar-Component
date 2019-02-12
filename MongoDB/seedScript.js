@@ -4,6 +4,12 @@ const url = 'mongodb://localhost:27017';
 const client = new MongoClient(url, { useNewUrlParser: true });
 const dbName = 'menu-bar-data';
 const usersCollection = 'users';
+const fakeLogoArray = require('../database/fakeLogoArray');
+
+const randomizer = (array) => {
+  let limit = array.length - 1;
+  return array[Math.floor(Math.random() * limit)];
+}
 
 let generateUserData = (start, end) => {
   let result = [];
@@ -14,7 +20,7 @@ let generateUserData = (start, end) => {
           "_id": i,
           "user_id": i,
           "display_name": `${faker.internet.userName()}`,
-          "logo": `${faker.image.cats()}`,
+          "logo": `${randomizer(fakeLogoArray)}`,
           "profile_image_url": `${faker.image.avatar()}`,
           "category": `${faker.random.word()}`,
           "followers": `${Math.floor(Math.random() * 200)}`,

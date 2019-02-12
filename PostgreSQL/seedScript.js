@@ -1,4 +1,4 @@
-//const db = require('./config');
+
 const faker = require('faker');
 
 let generateUserData = (start, end) => {

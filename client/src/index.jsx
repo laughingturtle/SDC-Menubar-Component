@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import SideBar from './components/SideBar.jsx';
 import AppRouter from './Router.jsx';
-import { ifError } from 'assert';
-import fakeData from './../../database/fakeData'
+// import { ifError } from 'assert';
+// import fakeData from './../../database/fakeData'
 
 
 class App extends React.Component {
@@ -45,14 +45,10 @@ class App extends React.Component {
 
 
   componentDidMount() {
-    // console.log(Array.isArray(this.state.users));
-    // console.log(this.state.users);
     fetch('http://localhost:3015/username')
       .then(res => res.json())
       .then(
         (result) => {
-          console.log(Array.isArray(result));
-          console.log(result);
           this.setState({
             users: [...result]
           })
@@ -64,8 +60,6 @@ class App extends React.Component {
   }
 
   render() {
-    // const sidebar = this.state.users.length ? <SideBar userInfo={this.state} onSelect={this.displayStreamerVideos}/> : null;
-    // const appRouter = this.state.users.length ? <AppRouter userInfo={this.state} onClick={(e) => this.handleClick(e)}/> : null;
     if (this.state.users === null) {
       return ( <div>Loading . . .</div>);
     } else {
