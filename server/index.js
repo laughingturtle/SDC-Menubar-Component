@@ -15,16 +15,21 @@ app.use(express.static(__dirname + '/../public'));
 app.get('/username', (req, res) => {
   mongo.client.connect((err) => {
     if (err) {
-      console.log(err)
+      console.log(err);
+      res.status(500).end();
     } else {
-      console.log('GET API called')
+      console.log('GET api called')
     }
 
     new Promise((resolve, reject) => {
       users.find({}, { "limit": 100, "skip": 9999900 })
       .toArray((err, docs) => {
-        if (err) { console.log(err); res.status(201); }
-        resolve(docs);
+        if (err) {
+          console.log(err);
+          res.status(500).end();
+        } else {
+          resolve(docs);
+        }
       })
     })
     .then((data) => res.status(200).send(JSON.stringify(data)))
