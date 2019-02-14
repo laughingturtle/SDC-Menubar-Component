@@ -1,5 +1,11 @@
 
 const faker = require('faker');
+const fakeLogoArray = require('../database/fakeLogoArray');
+
+const randomizer = (array) => {
+  let limit = array.length - 1;
+  return array[Math.floor(Math.random() * limit)];
+}
 
 let generateUserData = (start, end) => {
   let result = [];
@@ -7,7 +13,7 @@ let generateUserData = (start, end) => {
     result.push({
       "user_id": i,
       "display_name": `${faker.internet.userName()}`,
-      "logo": `${faker.image.cats()}`,
+      "logo": `${randomizer(fakeLogoArray)}`,
       "profile_image_url": `${faker.image.avatar()}`,
       "category": `${faker.random.word()}`,
       "followers": `${Math.floor(Math.random() * 200)}`,
