@@ -2,18 +2,20 @@ const port = 3015 || process.env.PORT;
 const assert = require('assert');
 const express = require('express');
 const app = express();
-const bodyParser = require('body-parser');
+const helmet = require('helmet');
 const cors = require('cors');
 const mongo = require('../MongoDB/index');
 const db = mongo.client.db(`menu-bar-data`);
 const users = db.collection(`users`);
 
-app.use(cors());
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
-app.use(express.static(__dirname + '/../public'));
+app.use(helmet());
 
-app.get('/username', (req, res) => {
+app.use(express.static(__dirname + '/../public'));
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(cors());
+
+app.get('/getProfile', (req, res) => {
   mongo.client.connect((err) => {
     if (err) {
       console.log(err);
@@ -48,16 +50,7 @@ app.post(`/createProfile`, (req, res) => {
     }
 
     new Promise((resolve, reject) => {
-      users.insertOne({
-        "_id": i,
-        "user_id": i,
-        "display_name": `${faker.internet.userName()}`,
-        "logo": `${randomizer(fakeLogoArray)}`,
-        "profile_image_url": `${faker.image.avatar()}`,
-        "category": `${faker.random.word()}`,
-        "followers": `${Math.floor(Math.random() * 200)}`,
-        "following": `${Math.floor(Math.random() * 200)}`
-      }, (err, r) => {
+      users.insertOne(req.body, (err, r) => {
         assert.equal(null, err);
         resolve(assert.equal(1, r.insertedCount));
       })
@@ -68,7 +61,6 @@ app.post(`/createProfile`, (req, res) => {
 })
 
 app.delete(`/deleteProfile`, (req, res) => {
-
   mongo.client.connect((err) => {
     if (err) {
       console.log(err);
@@ -78,18 +70,13 @@ app.delete(`/deleteProfile`, (req, res) => {
     }
 
     new Promise((resolve, reject) => {
-      users.deleteOne({ "user_id": i });
+      users.deleteOne(req.body);
       resolve(e);
     })
-      .then((e) => {
-        console.log(e);
-      })
+      .then((e) => { console.log(e); })
       .then(() => res.status(200))
       .then(() => db.close(console.log('DELETE API complete')));
   })
-
-})
-
 })
 
 app.put(`/updateProfile`, (req, res) => {
@@ -102,16 +89,23 @@ app.put(`/updateProfile`, (req, res) => {
     }
 
     new Promise((resolve, reject) => {
-      users.updateOne({ "user_id": i }, { $set: { "display_name": `${faker.internet.userName()}` } });
+      users.updateOne(req.body.user_id, { $set: req.body.update });
       resolve(e);
     })
-      .then((e) => {
-        console.log(e);
-      })
+      .then((e) => { console.log(e); })
       .then(() => res.status(200))
       .then(() => db.close(console.log('PUT API complete')));
   })
-
 })
 
-app.listen(port, () => console.log(`App listening on port ${port}!`));
+app.listen(port, () => console.log(`Menu Bar server listening on port ${port}!`));
+
+
+
+
+/* Extra code -- lines from original file
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+*/
