@@ -4,9 +4,7 @@ const express = require('express');
 const app = express();
 const helmet = require('helmet');
 const cors = require('cors');
-const mongo = require('../MongoDB/index');
-const db = mongo.client.db(`menu-bar-data`);
-const users = db.collection(`users`);
+const mongo = require('../MongoDB/index.js');
 
 app.use(helmet());
 
@@ -15,8 +13,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
 
-app.get('/getProfile', (req, res) => {
+app.get('/username', (req, res) => {
   mongo.client.connect((err) => {
+    const db = mongo.client.db(`menu-bar-data`);
+    const users = db.collection(`users`);
     if (err) {
       console.log(err);
       res.status(500).end();
@@ -36,12 +36,14 @@ app.get('/getProfile', (req, res) => {
       })
     })
     .then((data) => res.status(200).send(JSON.stringify(data)))
-    .then(() => db.close(console.log('GET API complete')));
+      .then(() => mongo.client.close(console.log('GET API complete')));
   })
 });
 
 app.post(`/createProfile`, (req, res) => {
   mongo.client.connect((err) => {
+    const db = mongo.client.db(`menu-bar-data`);
+    const users = db.collection(`users`);
     if (err) {
       console.log(err);
       res.status(500).end();
@@ -56,12 +58,14 @@ app.post(`/createProfile`, (req, res) => {
       })
     })
       .then(() => res.status(200))
-      .then(() => db.close(console.log('POST API complete')));
+      .then(() => mongo.client.close(console.log('POST API complete')));
   })
 })
 
 app.delete(`/deleteProfile`, (req, res) => {
   mongo.client.connect((err) => {
+    const db = mongo.client.db(`menu-bar-data`);
+    const users = db.collection(`users`);
     if (err) {
       console.log(err);
       res.status(500).end();
@@ -75,12 +79,14 @@ app.delete(`/deleteProfile`, (req, res) => {
     })
       .then((e) => { console.log(e); })
       .then(() => res.status(200))
-      .then(() => db.close(console.log('DELETE API complete')));
+      .then(() => mongo.client.close(console.log('DELETE API complete')));
   })
 })
 
 app.put(`/updateProfile`, (req, res) => {
   mongo.client.connect((err) => {
+    const db = mongo.client.db(`menu-bar-data`);
+    const users = db.collection(`users`);
     if (err) {
       console.log(err);
       res.status(500).end();
@@ -94,7 +100,7 @@ app.put(`/updateProfile`, (req, res) => {
     })
       .then((e) => { console.log(e); })
       .then(() => res.status(200))
-      .then(() => db.close(console.log('PUT API complete')));
+      .then(() => mongo.client.close(console.log('PUT API complete')));
   })
 })
 
