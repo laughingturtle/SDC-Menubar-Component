@@ -5,11 +5,11 @@ This service renders Twitch streamer information. The information includes numbe
 
 - Run `npm install` in the repo directory.
 
-- Run `sudo mongod` in a free terminal pane, to start your local MongoDB server.
-    (If you don't have MongoDB on your machine, you can install it using a tutorial found [here](https://docs.mongodb.com/manual/installation/#tutorials))
+- Run `sudo mongod` in a free terminal pane to start your local MongoDB server.
+  (If you don't have MongoDB on your machine, you can install it using a tutorial found [here](https://docs.mongodb.com/manual/installation/#tutorials))
 
 - While your Mongo server is running, use another terminal pane to access the repo directory and run `npm run mongoSeed`
-    (This will seed your database with 10 million records. You can monitor progress in the console.)
+  (This will seed your database with 10 million records. You can monitor progress in the console.)
 
 - Once the seed script is finished, you can run `npm run react-dev` in the repo directory to build the webpack bundle, and then run `npm start` to start the server.
 
